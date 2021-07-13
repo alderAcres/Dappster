@@ -3,6 +3,9 @@ import { tokens, ether, ETHER_ADDRESS, EVM_REVERT, wait } from './helpers'
 const Token = artifacts.require('./Token')
 const DecentralizedBank = artifacts.require('./dBank')
 
+//chai = "assertion library"
+//mocha is a testing environment that comes bundled with truffle
+
 require('chai')
   .use(require('chai-as-promised'))
   .should()

@@ -2,18 +2,14 @@ const Token = artifacts.require("Token");
 const dBank = artifacts.require("dBank");
 
 module.exports = async function(deployer) {
-	//deploy Token
+	//deploy Token through Truffle
 	await deployer.deploy(Token)
 
-	//assign token into variable to get it's address
-	const token = await Token.deployed()
-	
-	//pass token address for dBank contract(for future minting)
-	await deployer.deploy(dBank, token.address)
+	const token = await Token.deployed();
 
-	//assign dBank contract into variable to get it's address
-	const dbank = await dBank.deployed()
+	await deployer.deploy(dBank, token.address);
 
-	//change token's owner/minter from deployer to dBank
-	await token.passMinterRole(dbank.address)
+	const dbank = await dBank.deployed();
+
+	await token.passMinterRole(dbank.address);
 };

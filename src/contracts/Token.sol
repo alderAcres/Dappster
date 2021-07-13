@@ -7,21 +7,22 @@ contract Token is ERC20 {
   address public minter;
 
   event MinterChanged(address indexed from, address to);
-
+  
   constructor() public payable ERC20("Decentralized Bank Currency", "DBC") {
-    minter = msg.sender; //only initially
+    minter = msg.sender;
   }
 
   function passMinterRole(address dBank) public returns (bool) {
-  	require(msg.sender==minter, 'Error, only owner can change pass minter role');
-  	minter = dBank;
+    require(msg.sender == minter, 'Error, msg.sender is not minter');
+    minter = dBank;
 
     emit MinterChanged(msg.sender, dBank);
     return true;
   }
 
   function mint(address account, uint256 amount) public {
-		require(msg.sender==minter, 'Error, msg.sender does not have minter role'); //dBank
-		_mint(account, amount);
+    require(msg.sender == minter, 'Error, msg.sender is not minter');
+    //built in mint funciton method used by ERC20 Token Standard
+    _mint(account, amount);
 	}
 }
